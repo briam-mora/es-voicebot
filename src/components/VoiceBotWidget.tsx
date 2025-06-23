@@ -6,33 +6,18 @@ import VoiceBot from './VoiceBot';
  * Incluye estilos aislados y configuración para iframe
  */
 interface VoiceBotWidgetProps {
-  /** Título personalizado del widget */
-  title?: string;
-  /** Descripción personalizada */
-  description?: string;
   /** Ancho del widget */
   width?: string | number;
   /** Alto del widget */
   height?: string | number;
   /** Clase CSS adicional */
   className?: string;
-  /** Configuración personalizada de OpenAI */
-  openaiConfig?: {
-    model?: string;
-    voice?: string;
-    language?: string;
-    maxTokens?: number;
-    temperature?: number;
-  };
 }
 
 const VoiceBotWidget: React.FC<VoiceBotWidgetProps> = ({
-  title = "Asistente Virtual",
-  description = "Habla conmigo para obtener ayuda",
   width = "400px",
   height = "600px",
-  className = "",
-  openaiConfig
+  className = ""
 }) => {
   return (
     <div 
@@ -45,14 +30,23 @@ const VoiceBotWidget: React.FC<VoiceBotWidgetProps> = ({
         overflow: 'hidden',
         borderRadius: '12px',
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}
     >
-      <div className="voicebot-widget-container">
+      <div 
+        className="voicebot-widget-container"
+        style={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          borderRadius: '12px'
+        }}
+      >
         <VoiceBot />
       </div>
       
-      <style jsx>{`
+      <style>{`
         .voicebot-widget {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }

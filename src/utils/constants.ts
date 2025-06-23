@@ -288,7 +288,7 @@ export const truncateResponse = (response: string): string => {
  * Valida si una respuesta cumple con los límites
  */
 export const validateResponseLength = (response: string): { isValid: boolean; reason?: string } => {
-  const { MAX_CHARACTERS, MAX_WORDS, MIN_TOKENS } = VOICEBOT_CONFIG.RESPONSE_LIMITS;
+  const { MAX_CHARACTERS, MAX_WORDS } = VOICEBOT_CONFIG.RESPONSE_LIMITS;
   
   const words = response.trim().split(/\s+/);
   const wordCount = words.length;

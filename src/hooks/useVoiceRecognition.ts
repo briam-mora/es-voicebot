@@ -11,7 +11,7 @@ export function useVoiceRecognition() {
   const [error, setError] = useState<VoiceBotError | null>(null);
   const [isSupported, setIsSupported] = useState(false);
   
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const finalTranscriptRef = useRef<string>('');
 
@@ -49,7 +49,7 @@ export function useVoiceRecognition() {
       finalTranscriptRef.current = '';
     };
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       let finalTranscript = '';
       let interimTranscript = '';
 
@@ -71,7 +71,7 @@ export function useVoiceRecognition() {
       setTranscript(currentTranscript);
     };
 
-    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+    recognition.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
       
       let errorMessage = 'Error en el reconocimiento de voz';
@@ -162,7 +162,7 @@ export function useVoiceRecognition() {
           }
           
           if (originalOnEnd) {
-            originalOnEnd.call(recognition);
+            originalOnEnd.call(recognition, new Event('end'));
           }
         };
 

@@ -14,16 +14,9 @@ import PDFUpload from './PDFUpload';
 const VoiceBot: React.FC = () => {
   const [state, setState] = useState<VoiceBotState>('idle');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [currentResponse, setCurrentResponse] = useState('');
   const [error, setError] = useState<VoiceBotError | null>(null);
   const [currentVoice, setCurrentVoice] = useState('nova');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [tokenStats, setTokenStats] = useState<{
-    maxTokens: number;
-    maxWords: number;
-    maxCharacters: number;
-    tokenSavingEnabled: boolean;
-  } | null>(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [lastRagContext, setLastRagContext] = useState<string | null>(null);
   
@@ -32,7 +25,6 @@ const VoiceBot: React.FC = () => {
   const initialized = useRef(false);
 
   const {
-    isListening,
     transcript,
     error: recognitionError,
     isSupported,
@@ -76,8 +68,7 @@ const VoiceBot: React.FC = () => {
         temperature: 0.7
       });
       if (adminMode) {
-        const openaiService = getOpenAIService();
-        setTokenStats(openaiService.getTokenStats());
+        // Token stats removed as they were unused
       }
     } catch (err) {
       setError({
@@ -259,7 +250,6 @@ const VoiceBot: React.FC = () => {
       
       // Reemplazar el placeholder con el mensaje final
       setMessages(prev => prev.map(msg => msg.id === assistantMessageId ? assistantMessage : msg));
-      setCurrentResponse(response);
 
       // Limpiar URL anterior si existe
       if (audioUrlRef.current) {
@@ -307,7 +297,7 @@ const VoiceBot: React.FC = () => {
     setState('idle');
     setError(null);
     clearRecognitionError();
-    setCurrentResponse('');
+
   }, [stopListening, stopAudio, clearRecognitionError, isAdminMode]);
 
   /**
@@ -315,7 +305,6 @@ const VoiceBot: React.FC = () => {
    */
   const handleAudioEnded = useCallback(() => {
     setState('idle');
-    setCurrentResponse('');
   }, []);
 
   /**
@@ -323,7 +312,6 @@ const VoiceBot: React.FC = () => {
    */
   const clearHistory = useCallback(() => {
     setMessages([]);
-    setCurrentResponse('');
     setError(null);
   }, []);
 

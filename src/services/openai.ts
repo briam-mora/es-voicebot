@@ -1,10 +1,8 @@
 import OpenAI from 'openai';
-import { ChatMessage, VoiceBotConfig, TTSResponse } from '../types';
+import { ChatMessage, TTSResponse } from '../types';
 import { 
   generateGenderSpecificPrompt, 
   VOICEBOT_CONFIG, 
-  truncateResponse, 
-  validateResponseLength,
   getVoiceGender
 } from '../utils/constants';
 import { pdfService } from './pdfService';

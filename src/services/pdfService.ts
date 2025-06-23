@@ -98,7 +98,7 @@ class PDFService {
       return false;
     }
     
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (!ALLOWED_TYPES.includes(file.type as any)) {
       return false;
     }
     
@@ -176,7 +176,7 @@ class PDFService {
   /**
    * Busca chunks similares a una consulta
    */
-  async searchSimilarChunks(query: string, topK: number = 3): Promise<PDFChunk[]> {
+  async searchSimilarChunks(_query: string, topK: number = 3): Promise<PDFChunk[]> {
     // En una implementación real, usarías similitud coseno
     const allChunks: PDFChunk[] = [];
     
