@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceBot - Ejemplos de Integración</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .example {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9fafb;
+        }
+        .example h3 {
+            color: #374151;
+            margin-top: 0;
+        }
+        .code {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .gender-example {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .voice-info {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .voice-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .female { background: #fce7f3; color: #be185d; }
+        .male { background: #dbeafe; color: #1d4ed8; }
+        .neutral { background: #f3f4f6; color: #374151; }
+        .admin-mode {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .client-mode {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .mode-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .mode-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: white;
+        }
+        .mode-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature-list li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+        .feature-list li.disabled::before {
+            content: "✗";
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎙️ VoiceBot - Ejemplos de Integración</h1>
+        <p>Ejemplos de cómo integrar el VoiceBot en tu aplicación web.</p>
+
+        <div class="example">
+            <h2>🎯 Características Principales</h2>
+            <ul>
+                <li><strong>Reconocimiento de Voz:</strong> Web Speech API para transcribir audio</li>
+                <li><strong>Chat Inteligente:</strong> OpenAI GPT-4o para respuestas contextuales</li>
+                <li><strong>Síntesis de Voz:</strong> OpenAI TTS con 6 voces disponibles</li>
+                <li><strong>Género Adaptativo:</strong> El asistente se adapta al género de la voz seleccionada</li>
+                <li><strong>Interfaz Moderna:</strong> UI responsive con TailwindCSS</li>
+                <li><strong>Modo Admin:</strong> Interfaz simplificada para clientes, completa para administradores</li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <h2>🔧 Modos de Uso</h2>
+            <p>El VoiceBot tiene dos modos de operación para diferentes casos de uso:</p>
+            
+            <div class="mode-comparison">
+                <div class="mode-card">
+                    <h4>👤 Modo Cliente</h4>
+                    <p><strong>URL:</strong> <code>http://localhost:5173</code></p>
+                    <p>Interfaz limpia y minimalista para usuarios finales.</p>
+                    
+                    <h5>Características:</h5>
+                    <ul class="feature-list">
+                        <li>Botón de hablar simple</li>
+                        <li>Respuesta de audio</li>
+                        <li>Estados visuales claros</li>
+                        <li>Manejo de errores básico</li>
+                        <li>Historial de conversación</li>
+                        <li class="disabled">Selector de voces</li>
+                        <li class="disabled">Estadísticas técnicas</li>
+                        <li class="disabled">Logs de debug</li>
+                    </ul>
+                </div>
+                
+                <div class="mode-card">
+                    <h4>🔧 Modo Admin</h4>
+                    <p><strong>URL:</strong> <code>http://localhost:5173?admin=true</code></p>
+                    <p>Interfaz completa con todas las herramientas de desarrollo.</p>
+                    
+                    <h5>Características:</h5>
+                    <ul class="feature-list">
+                        <li>Botón de hablar simple</li>
+                        <li>Respuesta de audio</li>
+                        <li>Estados visuales claros</li>
+                        <li>Manejo de errores detallado</li>
+                        <li>Historial de conversación</li>
+                        <li>Selector de voces completo</li>
+                        <li>Estadísticas de tokens</li>
+                        <li>Logs de debug en consola</li>
+                        <li>Información de género de voz</li>
+                        <li>Badges de respuesta truncada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>👥 Sistema de Género Adaptativo</h2>
+            <p>El VoiceBot ahora detecta automáticamente el género de la voz seleccionada y ajusta las respuestas del asistente:</p>
+            
+            <div class="gender-example">
+                <h3>Voces Femeninas (Nova, Shimmer)</h3>
+                <div class="voice-info">
+                    <span class="voice-badge female">👩 Femenina</span>
+                    <span>El asistente responde usando lenguaje femenino cuando es apropiado</span>
+                </div>
+                <div class="code">
+// Prompt automático generado:
+"Eres Nova, asistente femenina. Responde en español, máximo 50 palabras. Sé concisa y útil."
+
+// Ejemplo de respuesta:
+"¡Hola! Soy Nova, tu asistente virtual. 
+Estoy aquí para ayudarte con lo que necesites. 
+¿En qué puedo asistirte hoy?"
+                </div>
+            </div>
+
+            <div class="gender-example">
+                <h3>Voces Masculinas (Echo, Fable, Onyx)</h3>
+                <div class="voice-info">
+                    <span class="voice-badge male">👨 Masculina</span>
+                    <span>El asistente responde usando lenguaje masculino cuando es apropiado</span>
+                </div>
+                <div class="code">
+// Prompt automático generado:
+"Eres Echo, asistente masculino. Responde en español, máximo 50 palabras. Sé conciso y útil."
+
+// Ejemplo de respuesta:
+"¡Hola! Soy Echo, tu asistente virtual. 
+Estoy aquí para ayudarte con lo que necesites. 
+¿En qué puedo asistirte hoy?"
+                </div>
+            </div>
+
+            <div class="gender-example">
+                <h3>Voces Neutrales (Alloy)</h3>
+                <div class="voice-info">
+                    <span class="voice-badge neutral">⚪ Neutral</span>
+                    <span>El asistente responde de manera neutral y profesional</span>
+                </div>
+                <div class="code">
+// Prompt automático generado:
+"Eres Alloy, asistente virtual. Responde en español, máximo 50 palabras. Sé conciso y útil."
+
+// Ejemplo de respuesta:
+"¡Hola! Soy Alloy, tu asistente virtual. 
+Estoy aquí para ayudarte con lo que necesites. 
+¿En qué puedo asistirte hoy?"
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>🔧 Integración Básica</h2>
+            <h3>1. Como iframe</h3>
+            <div class="code">
+&lt;!-- Modo cliente (recomendado para producción) --&gt;
+&lt;iframe 
+  src="http://localhost:5173" 
+  width="400" 
+  height="600"
+  frameborder="0"
+  style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+&gt;&lt;/iframe&gt;
+
+&lt;!-- Modo admin (para desarrollo/debug) --&gt;
+&lt;iframe 
+  src="http://localhost:5173?admin=true" 
+  width="400" 
+  height="600"
+  frameborder="0"
+  style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+&gt;&lt;/iframe&gt;
+            </div>
+
+            <h3>2. Como componente React</h3>
+            <div class="code">
+import VoiceBot from './components/VoiceBot';
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Mi Sitio Web&lt;/h1&gt;
+      &lt;VoiceBot /&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>🎨 Personalización</h2>
+            <h3>Configuración del VoiceBot</h3>
+            <div class="code">
+const config = {
+  model: 'gpt-4o',           // Modelo de OpenAI
+  voice: 'nova',             // Voz TTS (se adapta automáticamente)
+  language: 'es-ES',         // Idioma
+  maxTokens: 150,            // Máximo tokens por respuesta
+  temperature: 0.7           // Creatividad (0-1)
+};
+            </div>
+
+            <h3>Voces Disponibles</h3>
+            <div class="code">
+// Voces Femeninas
+nova: "Voz femenina clara y natural" (Recomendada para español)
+shimmer: "Voz femenina suave"
+
+// Voces Masculinas  
+echo: "Voz masculina profunda"
+fable: "Voz masculina cálida"
+onyx: "Voz masculina autoritaria"
+
+// Voces Neutrales
+alloy: "Voz neutral versátil"
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>🚀 Instalación Rápida</h2>
+            <div class="code">
+# 1. Clonar repositorio
+git clone &lt;url-del-repo&gt;
+cd Chatbot
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar variables de entorno
+cp env.example .env
+# Editar .env y agregar VITE_OPENAI_API_KEY
+
+# 4. Ejecutar
+npm run dev
+
+# 5. Acceder
+# Cliente: http://localhost:5173
+# Admin: http://localhost:5173?admin=true
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>🔍 Debugging y Logs</h2>
+            <p>El sistema muestra información útil en la consola del navegador (solo en modo admin):</p>
+            <div class="code">
+// Al cambiar de voz:
+"Voz cambiada a: Nova (female)"
+"Prompt actualizado para voz: nova"
+"Nuevo prompt: Eres Nova, asistente femenina..."
+
+// Durante la conversación:
+"Iniciando reconocimiento de voz..."
+"Transcript recibido: hola como estás"
+"Enviando a OpenAI..."
+"Respuesta de OpenAI: ¡Hola! Soy Nova, tu asistente..."
+"Convirtiendo a audio..."
+
+// Estadísticas de tokens:
+"Enviando mensaje con límite de 150 tokens"
+"Tokens usados: 145 (prompt: 23, completion: 122)"
+"Respuesta truncada para cumplir límites"
+            </div>
+        </div>
+
+        <div class="example">
+            <h2>📱 Estados del Sistema</h2>
+            <ul>
+                <li><span class="highlight">🔵 Idle:</span> Listo para escuchar</li>
+                <li><span class="highlight">🔴 Listening:</span> Escuchando tu voz</li>
+                <li><span class="highlight">🟡 Processing:</span> Procesando con IA</li>
+                <li><span class="highlight">🟢 Speaking:</span> Reproduciendo respuesta</li>
+                <li><span class="highlight">❌ Error:</span> Error en el sistema</li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <h2>🐛 Solución de Problemas</h2>
+            <h3>Error: "No se detectó audio válido"</h3>
+            <p><strong>Causa:</strong> Micrófono no detectado o permisos denegados</p>
+            <p><strong>Solución:</strong> Verifica permisos del navegador y habla más cerca del micrófono</p>
+
+            <h3>Error: "Falta la clave de API"</h3>
+            <p><strong>Causa:</strong> Variable de entorno no configurada</p>
+            <p><strong>Solución:</strong> Configura <code>VITE_OPENAI_API_KEY</code> en tu archivo <code>.env</code></p>
+
+            <h3>Voz suena robótica</h3>
+            <p><strong>Causa:</strong> Modelo TTS o configuración subóptima</p>
+            <p><strong>Solución:</strong> Usa la voz "Nova" que está optimizada para español</p>
+
+            <h3>Modo admin no funciona</h3>
+            <p><strong>Causa:</strong> URL mal formada</p>
+            <p><strong>Solución:</strong> Verifica que sea exactamente <code>?admin=true</code></p>
+        </div>
+
+        <div class="example">
+            <h2>📞 Soporte</h2>
+            <p>Si tienes problemas o preguntas:</p>
+            <ol>
+                <li>Revisa la sección de Solución de Problemas</li>
+                <li>Abre un issue en GitHub</li>
+                <li>Contacta al equipo de desarrollo</li>
+            </ol>
+        </div>
+
+        <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280;">
+            <p>VoiceBot - Asistente Virtual con Voz | Desarrollado con React + TypeScript + OpenAI</p>
+        </footer>
+    </div>
+</body>
+</html> 
